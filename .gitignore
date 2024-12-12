@@ -1,41 +1,87 @@
-# Compiled Lua sources
-luac.out
+local Rayfield = loadstring(game:HttpGet('https://[Log in to view URL]'))()
 
-# luarocks build files
-*.src.rock
-*.zip
-*.tar.gz
+    local Window = Rayfield:CreateWindow({
+   Name = "NagHub",
+   LoadingTitle = "NagHub | Beta",
+   LoadingSubtitle = "by Nagorixs",
+   ConfigurationSaving = {
+      Enabled = false,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "infinite jump"
+   },
+   Discord = {
+      Enabled = nil,
+      Invite = "vegaX", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+   KeySystem = nil, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "NagHub | Key",
+      Subtitle = "Link in Discord Server",
+      Note = "DM @stein.wolf on discord if u wanna make scripts with me",
+      FileName = "IhatNagHub", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = false, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"18"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
 
-# Object files
-*.o
-*.os
-*.ko
-*.obj
-*.elf
+local MainTab = Window:CreateTab("Home", nil) -- Title, Image
+local MainSection = MainTab:CreateSection("Main")
 
-# Precompiled Headers
-*.gch
-*.pch
+Rayfield:Notify({
+   Title = "You execute the script",
+   Content = "very good gui",
+   Duration = 5.2,
+   Image = 4483362458,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Okay!",
+         Callback = function()
+         print("The user tapped Okay!")
+      end
+   },
+},
+})
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-*.def
-*.exp
+local Button = MainTab:CreateButton({
+   Name = "Infinite Jump",
+   Callback = function()
+               --Toggles the infinite jump between on or off on every script run
+_G.infinjump = not _G.infinjump
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+if _G.infinJumpStarted == nil then
+   --Ensures this only run once to save resources
+   _G.infinJumpStarted = true
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+   --Notifies readines
+   game.StarterGui:Setcore("SendNotification", {Title= "Youtube Hub" ; Text= Infinite Jump Activated!"; Duration=5;})     
 
+   --The actual infinite jump
+   local plr = game:GetService('Players').LocalPlayer
+   local m = plr:GetMouse()
+   m.KeyDown:connect(function(k)
+        if _G.infinjump then
+            if k:byte() == 32 then
+            humanoid = game:Getservice 'Players' .LocalPlayer.Character:FindFirstChildOfClass('Humanoid')
+            humanoid:ChangeState('Jumping')
+            wait()
+            humanoid:ChangeState('Seated')
+            end                            
+        end
+    end)
+end
+    end,
+})                
+
+local Slider = MainTab:CreateSlider({
+    Name = Walkspeed Slider",
+    Range = {0, 300},
+    Increment = 1
+    Suffix = "Speed" 
+    CurrentValue = 16
+    Flag = "Slider", 
+    Callback = Function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.Walkspeed = (Value)
+    end,
+})
